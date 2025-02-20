@@ -1,27 +1,18 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-let dbConnection;
-
-const urlSchema = mongoose.Schema({
-  longUrl: String,
-  shortUrl: String,
-  clicks: { type: Number, default: 0 },
-});
-
-module.exports = { url: mongoose.model("url", urlSchema) };
-
-const MongoUri = process.env.mongodbUri;
-
-module.exports = {
-  connectToDb: (callback) => {
-    mongoose
-      .connect(MongoUri)
-      .then((client) => {
-      dbConnection = client.connection;
-      callback(null, dbConnection);
-      })
-      .catch((error) => {
-        callback(error);
-      }); 
-  },
+const db = () => {
+  mongoose
+    .connect(process.env.mongoUri)
+    .then(() => {
+      console.log("Database connected successfully");
+    })
+    .catch((error) => {
+      console.log({
+        myMsg: "there is some error in connecting to Database.",
+        error,
+      });
+    });
 };
+
+module.exports = db;

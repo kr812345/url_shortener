@@ -1,25 +1,26 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { shortener, shortUrl,getStats } = require("./controller");
+const { shortener, shortUrl, getStats } = require("./controller.js");
 
-router.post("/shorten", (req, res) => {
+router.post("/shorten", async (req, res) => {
   const longUrl = req.body;
 
-  shortener(longUrl);
+  const urlObj = await shortener(longUrl);
+  res.json({ urlObj });
 });
 
-router.get("/:shortUrl", (req, res) => {
-  const shortUrl_ = req.params.shortUrl;
-
-  shortUrl(shortUrl_);
+router.get("/:id", async (req, res) => {
+  const id_ = req.params.id;
+  console.log("helloooo.......");
+  const longUrl = await shortUrl(id_);
+  res.redirect(longUrl);
 });
 
-router.get('/stats/:id', (req, res) => {
-    const id = req.params.id;
+router.get("/stats/:id", async (req, res) => {
+  const id = req.params.id;
 
-    const clicks = getStats(id);
-    console.log(clicks);
-    res.status(200).send(clicks);
-})
+  const clicks = await getStats(id);
+  res.status(200).json({ clicks });
+});
 
 module.exports = router;

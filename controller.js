@@ -1,38 +1,37 @@
-require('dotenv').config();
-const urlM = require("./db");
-const crypto = require('crypto');
+require("dotenv").config();
+const urlM = require("./model.js");
+const crypto = require("crypto");
+const Mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
 
 const baseUrl = process.env.baseUrl;
 
 const genUniqId = () => {
-    return crypto.randomBytes(3).toString('hex'); // 3 bytes = 6 hex characters
-}
-
-const id = genUniqId();
+  return crypto.randomBytes(3).toString("hex");
+};
 
 module.exports = controller = {
-  shortener: async (longUrl) => {
-    
+  shortener: async ({ longUrl }) => {
     const shortUrl = `${baseUrl}/${genUniqId()}`;
-    console.log(shortUrl);
-    urlObj = await urlM.create({ longUrl, shortUrl });
+    const urlObj = await urlM.create({ longUrl, shortUrl });
+    console.log(urlObj);
     return urlObj;
   },
 
-  shortUrl: async (shortUrl) => {
-    const url = await urlM.findOne({ shortUrl });
+  shortUrl: async ({ id_ }) => {
+    const url = await urlM.findOne({ _id: id_ });
     if (!url) {
-      res.status(404).send("Url not found.");
+      return { msg: "Url Not Found." };
     }
 
     url.clicks += 1;
     await url.save();
-    res.redirect(url.longUrl);
+    return url.longUrl;
   },
 
   getStats: async (id) => {
-    const url = await urlM.findOne({ _id: ObjectId(id) });
-    console.log(url.clicks);
+    const url = await urlM.findOne({ _id: id });
+
     return url.clicks;
   },
 };

@@ -1,22 +1,19 @@
 {
-  "name": "url_shortner",
+  "name": "kuxbilikhde",
   "version": "1.0.0",
-  "description": "url shortner",
-  "main": "app.js",
-  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
-    "test": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "Krishna Yadav",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongodb": "^6.13.0",
-    "mongoose": "^8.10.1",
-    "nanoid": "^5.1.0",
-    "uuid": "^11.1.0",
-    "uuidv4": "^6.2.13",
-    "xid": "^0.0.2"
+    "mongoose": "^8.10.1"
   }
 }
