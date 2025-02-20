@@ -1,0 +1,22 @@
+{
+  "name": "url_shortner",
+  "version": "1.0.0",
+  "description": "url shortner",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "Krishna Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.10.1",
+    "nanoid": "^5.1.0",
+    "uuid": "^11.1.0",
+    "uuidv4": "^6.2.13",
+    "xid": "^0.0.2"
+  }
+}
